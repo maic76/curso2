@@ -32,7 +32,7 @@ class CreateTableEmpleado extends Migration
             $table->timestamps();
         });
     }
-
+//
     /**
      * Reverse the migrations.
      *

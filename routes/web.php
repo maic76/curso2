@@ -12,5 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('empleado/empleados');
+});
+
+
+Route::group(['prefix' => 'admin'],function(){
+
+	Route::resource('empleados','EmpleadosController');
 });

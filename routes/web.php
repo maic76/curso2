@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('empleado/empleados');
+    return view('welcome2');
 });
 
 

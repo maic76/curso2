@@ -26,7 +26,8 @@ class EmpleadosController extends Controller
     {
         //
        // echo 'Hola Esto es Crear un Empleado';
-        return View('empleados.create');
+        $empleado = new Empleado();
+        return View('admin.create',$empleado);
     }
 
     /**

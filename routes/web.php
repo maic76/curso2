@@ -21,7 +21,10 @@ Route::get('/', function () {
 	Route::resource('empleados','EmpleadosController');
 }); */
 
-Route::get('/empleados', 'EmpleadosController@index');
+/*Route::get('/empleados', 'EmpleadosController@index');
 
 Route::get('/empleados/create', 'EmpleadosController@create');
-Route::post('/empleados/store', 'EmpleadosController@store');
+Route::post('/empleados/store', 'EmpleadosController@store');*/
+
+
+Route::resource('empleados','EmpleadosController');

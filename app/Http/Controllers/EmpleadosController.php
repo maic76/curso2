@@ -11,12 +11,14 @@ class EmpleadosController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     *  
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('empleados.index');
+        $empleados = Empleado::paginate();
+
+        return view('empleados.index',['empleados'=>$empleados]);
     }
 
     /**
@@ -62,7 +64,7 @@ class EmpleadosController extends Controller
 
         ]);
 
-        //$empleado->matricula = $request->input['matricula']; //para guardar de uno en uno
+        //$empleado->matricula = $request->input('matricula'); //para guardar de uno en uno
         $empleado = new Empleado($request->all()); 
         $empleado->save();
 
@@ -96,6 +98,13 @@ class EmpleadosController extends Controller
     public function edit($id)
     {
         //
+        $empleado = Empleado::find($id);
+         $sexo = array ( 'HOMBRE' => 'HOMBRE',
+                        'MUJER' => 'MUJER');
+        //$turnos = Turno::all();
+         $turnos = Turno::all()->pluck('descripcion','id');
+         $deptos = Departamento::all()->pluck('descripcion','id');
+        return view('empleados.edit',compact('empleado','sexo','turnos','deptos'));
     }
 
     /**
@@ -108,6 +117,27 @@ class EmpleadosController extends Controller
     public function update(Request $request, $id)
     {
         //
+       $empleado = Empleado::find($id);
+       //  $empleado = $request->all(); 
+        // dd($empleado);
+       $empleado->matricula=$request->input('matricula');
+
+      $empleado->nombre=$request->input('nombre');
+
+      $empleado->paterno=$request->input('paterno');
+
+      $empleado->materno=$request->input('materno');
+
+      $empleado->fecha_nacimiento=$request->input('fecha_nacimiento');
+
+      $empleado->sexo=$request->input('sexo');
+
+      $empleado->id_turno=$request->input('id_turno');
+
+      $empleado->id_departamento=$request->input('id_departamento');
+        
+      $empleado->save();
+
     }
 
     /**
@@ -119,5 +149,10 @@ class EmpleadosController extends Controller
     public function destroy($id)
     {
         //
+        $empleado = Empleado::find($id);
+
+        $empleado->delete();
+
+        return $this->index();
     }
 }

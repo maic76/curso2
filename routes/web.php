@@ -16,7 +16,12 @@ Route::get('/', function () {
 });
 
 
-Route::group(['prefix' => 'admin'],function(){
+/*Route::group(['prefix' => 'admin'],function(){
 
 	Route::resource('empleados','EmpleadosController');
-});
+}); */
+
+Route::get('/empleados', 'EmpleadosController@index');
+
+Route::get('/empleados/create', 'EmpleadosController@create');
+Route::post('/empleados/store', 'EmpleadosController@store');

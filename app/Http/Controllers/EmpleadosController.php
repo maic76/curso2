@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Empleado;
+use App\Turno;
+use App\Departamento;
 
 class EmpleadosController extends Controller
 {
@@ -14,7 +16,7 @@ class EmpleadosController extends Controller
      */
     public function index()
     {
-        //
+        return view('empleados.index');
     }
 
     /**
@@ -27,7 +29,17 @@ class EmpleadosController extends Controller
         //
        // echo 'Hola Esto es Crear un Empleado';
         $empleado = new Empleado();
-        return View('admin.create',$empleado);
+        $sexo = array ( 'HOMBRE' => 'HOMBRE',
+                        'MUJER' => 'MUJER');
+        //$turnos = Turno::all();
+         $turnos = Turno::all()->pluck('descripcion','id');
+         $deptos = Departamento::all()->pluck('descripcion','id');
+        return view('empleados.create2', ['empleado'=>$empleado,
+                                            'sexos' =>$sexo,
+                                            'turnos' =>$turnos,
+                                            'departamentos' => $deptos]
+                                        );
+       // return View('empleados.create');
     }
 
     /**
@@ -39,9 +51,29 @@ class EmpleadosController extends Controller
     public function store(Request $request)
     {
         //
-        //dd($request->all());
+       // dd($request->toArray());
+       // dd($request->all());
+
+        $validatedData = $request->validate([
+            'matricula' => 'required|unique:empleados|min:3|max:4',
+            'paterno' => 'required',
+            'materno' => 'required',
+            'fecha_nacimiento' => 'required',
+
+        ]);
+
+        //$empleado->matricula = $request->input['matricula']; //para guardar de uno en uno
         $empleado = new Empleado($request->all()); 
         $empleado->save();
+
+        if ($empleado){
+            echo "Los datos se guardaron correctamente";
+        }else
+        {
+            echo "Los datos No se guardaron";
+        }
+
+
     }
 
     /**

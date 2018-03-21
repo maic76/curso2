@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome2');
+    return view('welcome');
 });
 
 
@@ -27,4 +27,8 @@ Route::get('/empleados/create', 'EmpleadosController@create');
 Route::post('/empleados/store', 'EmpleadosController@store');*/
 
 
-Route::resource('empleados','EmpleadosController');
+//Route::resource('empleados','EmpleadosController');
+Route::resource('/empleados','EmpleadosController',['middleware' => ['edad']]);
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

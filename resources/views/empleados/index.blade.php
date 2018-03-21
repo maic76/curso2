@@ -1,6 +1,7 @@
 <h1>Empleados</h1>
-@extends('admin.template.main')
-<table>
+@extends('admin.template.app')
+@section('content')
+<table class="table">
 	<thead>
 		<tr>
 			<th>#</th>
@@ -16,7 +17,7 @@
 			{!! $empleado->materno !!}</td>
 		
 		<td>
-			<a href="/empleados/{!! $empleado->id !!}/edit">Editar</a>
+			<a class="btn btn-info" href="/empleados/{!! $empleado->id !!}/edit">Editar</a>
 			{!! Form::model(
                 $empleado,
                  ['route' => ['empleados.destroy', $empleado->id],
@@ -32,4 +33,6 @@
 	</tbody>
 </table>
 
-{{!! $empleados->links(); !!}}
+{{!! $empleados->links() !!}}
+
+@endsection

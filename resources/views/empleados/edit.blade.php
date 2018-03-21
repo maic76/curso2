@@ -1,5 +1,5 @@
-@extends('admin.template.main')
-
+@extends('admin.template.app')
+@section('content')
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -55,3 +55,6 @@
 
 
                 {!! Form::close() !!}
+
+
+@endsection
